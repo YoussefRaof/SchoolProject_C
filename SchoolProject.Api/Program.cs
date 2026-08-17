@@ -1,6 +1,9 @@
 
 using Microsoft.EntityFrameworkCore;
 using SchoolProject.Infrastructure.Data;
+using SchoolProject.Infrastructure;
+using SchoolProject.Service;
+using SchoolProject.Core;
 
 namespace SchoolProject.Api
 {
@@ -22,6 +25,9 @@ namespace SchoolProject.Api
             {
                 op.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
+            builder.Services.AddInfraDI()
+                            .AddServicesDI()
+                            .AddCoreDI();
             #endregion
 
             var app = builder.Build();
