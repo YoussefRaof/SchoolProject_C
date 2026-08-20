@@ -18,6 +18,12 @@ namespace SchoolProject.Service.Services
         {
             _studentRepository = studentRepository;
         }
+
+        public async Task<Student?> GetStudentByIdAsync(int id)
+        {
+            return await _studentRepository.GetByIdAsync(id);
+        }
+
         public async Task<List<Student>> GetStudentsAsync()
         {
             return  await  _studentRepository.GetTableNoTracking().ToListAsync();

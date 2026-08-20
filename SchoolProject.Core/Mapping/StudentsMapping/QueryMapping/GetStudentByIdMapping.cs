@@ -11,12 +11,10 @@ namespace SchoolProject.Core.Mapping.StudentsMapping
 {
     public partial class StudentProfile : Profile
     {
-        public StudentProfile()
+        public void GetStudentByIdMapping()
         {
-            GetStudenyListMapping();
-            GetStudentByIdMapping();
-
-
+            CreateMap<Student, GetStudentByIdResponse>()
+.ForMember(dest => dest.DepartmentName, opt => opt.MapFrom(src => src.Department.DName));
         }
     }
 }

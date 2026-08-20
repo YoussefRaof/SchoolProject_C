@@ -13,12 +13,14 @@ using System.Threading.Tasks;
 
 namespace SchoolProject.Core.Features.Students.Queries.Handlers
 {
-    public class StudentHandler : ResponseHandler ,  IRequestHandler<GetStudentsListQuery, Response <List<GetStudentListResponse>>>
+    public class StudentQueryHandler : ResponseHandler ,  
+        IRequestHandler<GetStudentsListQuery, Response <List<GetStudentListResponse>>>,
+        IRequestHandler<GetStudentByIdQuery , Response<GetStudentByIdResponse>>
     {
         private readonly IStudentService _studentService;
         private readonly IMapper _mapper;
 
-        public StudentHandler(IStudentService studentService , IMapper mapper)
+        public StudentQueryHandler(IStudentService studentService , IMapper mapper)
         {
             _studentService = studentService;
             _mapper = mapper;
@@ -30,6 +32,17 @@ namespace SchoolProject.Core.Features.Students.Queries.Handlers
             var response = _mapper.Map<List<GetStudentListResponse>>(students);
 
             return Success(response);
+        }
+
+        public async Task<Response<GetStudentByIdResponse>> Handle(GetStudentByIdQuery request, CancellationToken cancellationToken)
+        {
+            var student = await _studentService.GetStudentByIdAsync(request.Id);
+            if (student is null)
+                return NotFound<GetStudentByIdResponse>("Student Not Found");
+
+            var response =  _mapper.Map<GetStudentByIdResponse>(student);
+            return Success(response);
+
         }
     }
 }
