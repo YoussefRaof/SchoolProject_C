@@ -13,7 +13,8 @@ namespace SchoolProject.Infrastructure
     {
         public static IServiceCollection AddInfraDI(this IServiceCollection services)
         {
-            services.AddTransient<IStudentRepository, StudentRepostiory>();
+            //services.AddTransient<IStudentRepository, StudentRepostiory>();
+            services.AddTransient(typeof(IGenericRepositoryAsync<>), typeof(GenericRepositoryAsync<>));
             return services;
         }
     }

@@ -1,4 +1,5 @@
-﻿using SchoolProject.Data.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using SchoolProject.Data.Entities;
 using SchoolProject.Infrastructure.Repositories.Contract;
 using SchoolProject.Service.Services.Contract;
 using System;
@@ -11,15 +12,15 @@ namespace SchoolProject.Service.Services
 {
     public class StudentService : IStudentService
     {
-        private readonly IStudentRepository _studentRepository;
+        private readonly IGenericRepositoryAsync<Student> _studentRepository;
 
-        public StudentService(IStudentRepository studentRepository)
+        public StudentService(IGenericRepositoryAsync<Student> studentRepository)
         {
             _studentRepository = studentRepository;
         }
         public async Task<List<Student>> GetStudentsAsync()
         {
-            return await _studentRepository.GetAllStudentsAsync();
+            return  await  _studentRepository.GetTableNoTracking().ToListAsync();
         }
     }
 }

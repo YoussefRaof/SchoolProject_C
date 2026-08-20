@@ -23,6 +23,7 @@ namespace SchoolProject.Api
 
             builder.Services.AddDbContext<SchoolContext>(op =>
             {
+                op.UseLazyLoadingProxies(true);
                 op.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
             builder.Services.AddInfraDI()
