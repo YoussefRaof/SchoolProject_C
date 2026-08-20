@@ -1,4 +1,4 @@
-﻿using MediatR;
+﻿using AutoMapper;
 using SchoolProject.Core.Features.Students.Queries.Responses;
 using SchoolProject.Data.Entities;
 using System;
@@ -7,9 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SchoolProject.Core.Features.Students.Queries.Models
+namespace SchoolProject.Core.Mapping.StudentsMapping
 {
-    public class GetStudentsListQuery:IRequest<List<GetStudentListResponse>>
+    public partial class StudentProfile : Profile
     {
+        public StudentProfile()
+        {
+            GetStudenyListMapping();
+
+
+        }
     }
 }

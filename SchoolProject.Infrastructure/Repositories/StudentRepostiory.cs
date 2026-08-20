@@ -20,7 +20,7 @@ namespace SchoolProject.Infrastructure.Repositories
         }
         public async Task<List<Student>> GetAllStudentsAsync()
         {
-            return await _dbContext.Students.ToListAsync();
+            return await _dbContext.Students.Include(s => s.Department).ToListAsync();
         }
     }
 }

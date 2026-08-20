@@ -14,6 +14,9 @@ namespace SchoolProject.Core
         {
             services.AddMediatR(config => config.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
 
+            //Adding AutoMapper To DI Container
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
             return services;
         }
     }
