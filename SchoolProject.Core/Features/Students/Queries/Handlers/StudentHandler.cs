@@ -2,6 +2,7 @@
 using MediatR;
 using SchoolProject.Core.Features.Students.Queries.Models;
 using SchoolProject.Core.Features.Students.Queries.Responses;
+using SchoolProject.Core.GeneralResponse;
 using SchoolProject.Data.Entities;
 using SchoolProject.Service.Services.Contract;
 using System;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace SchoolProject.Core.Features.Students.Queries.Handlers
 {
-    public class StudentHandler : IRequestHandler<GetStudentsListQuery, List<GetStudentListResponse>>
+    public class StudentHandler : ResponseHandler ,  IRequestHandler<GetStudentsListQuery, Response <List<GetStudentListResponse>>>
     {
         private readonly IStudentService _studentService;
         private readonly IMapper _mapper;
@@ -22,13 +23,13 @@ namespace SchoolProject.Core.Features.Students.Queries.Handlers
             _studentService = studentService;
             _mapper = mapper;
         }
-        public async Task<List<GetStudentListResponse>> Handle(GetStudentsListQuery request, CancellationToken cancellationToken)
+        public async Task<Response<List<GetStudentListResponse>>> Handle(GetStudentsListQuery request, CancellationToken cancellationToken)
         {
             var students = await _studentService.GetStudentsAsync();   
 
             var response = _mapper.Map<List<GetStudentListResponse>>(students);
 
-            return response;
+            return Success(response);
         }
     }
 }
