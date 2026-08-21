@@ -19,6 +19,18 @@ namespace SchoolProject.Service.Services
             _studentRepository = studentRepository;
         }
 
+        public async Task<string> CreateStudentAsync(Student student)
+        {
+            var studentToComapre = await _studentRepository.GetTableNoTracking().Where(s=>s.Name == student.Name).FirstOrDefaultAsync();
+
+            if (studentToComapre is not null)
+                return "Student Name Already Exists";
+
+            await _studentRepository.AddAsync(student);
+            return "Success";
+
+        }
+
         public async Task<Student?> GetStudentByIdAsync(int id)
         {
             return await _studentRepository.GetByIdAsync(id);

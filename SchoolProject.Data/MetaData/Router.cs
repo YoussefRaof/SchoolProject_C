@@ -18,6 +18,7 @@ namespace SchoolProject.Data.MetaData
             private const string Prefix = Rule + "Students";
             public const string List = Prefix + "/List";
             public const string GetById = Prefix + "/{id}";
+            public const string Create = Prefix + "/Create";
 
 
         }

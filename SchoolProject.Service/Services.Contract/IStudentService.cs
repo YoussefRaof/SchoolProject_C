@@ -11,5 +11,7 @@ namespace SchoolProject.Service.Services.Contract
     {
         Task<List<Student>> GetStudentsAsync();
         Task<Student?> GetStudentByIdAsync(int id);
+
+        Task <string> CreateStudentAsync(Student student);
     }
 }
